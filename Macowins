@@ -1,0 +1,99 @@
+
+class Prenda {
+	const tipo = ["saco" , "pantalon" , "camisa"]
+	var precioPropio
+	var estado 
+	
+	method precio(){
+		estado.calculoPrecio(precioPropio)
+	}
+}
+
+object nueva{
+	method calculoPrecio(precio){
+		return precio
+	}
+}
+
+object promocion{
+	var valorFijo = 0
+	method designarVF(vf){
+		valorFijo = vf
+	}
+	method calculoPrecio(precio){
+		return precio - valorFijo
+	}
+}
+
+object liquidacion{
+	method calculoPrecio(precio){
+		return precio * 0.5
+	}
+}
+
+
+
+class Venta{
+	
+	const ventas = []
+	var cantidad
+	var fecha
+	var metodoDePago
+	
+	method agregarVenta(ventaPrenda){
+		ventas.add(ventaPrenda)
+	}
+	
+	method ingresarCantV(cant){
+		cantidad =cant
+	}
+	
+	
+	method precioFinal(){
+	   return ventas.sum({venta => venta.precio() }) * cantidad 
+	}
+	
+	method totalAPagar(){
+		metodoDePago.total(self.precioFinal())
+	}
+}
+
+
+
+object efectivo{
+	method total(precio, cuotas){
+		return precio;
+	}
+}
+
+object tarjeta{
+	var coeficienteFijo
+	
+	method ingresarCF(cf){
+		coeficienteFijo = cf
+	}
+	method recargo(precio, cuotas){
+		return cuotas*coeficienteFijo + 0.1 *precio;
+	}
+	method total(precio, cuotas){
+		return precio + self.recargo(precio, cuotas);
+	}
+	
+}
+class Cliente{
+	const ventas = []
+	method consultarPrecio(prenda){
+		prenda.precio()
+	}
+	method consultarTipo(prenda){
+		prenda.tipo()
+	}
+	
+	method ventasFecha(fecha){
+		return ventas.filter({venta => venta.fecha() == fecha})
+	}
+	
+	method GananciasFecha(fecha){
+		  ventasFecha(fecha).sum({venta =>venta.total()})
+	}
+}
