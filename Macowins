@@ -1,4 +1,26 @@
 
+class Cliente{
+	const ventas = []
+	method consultarPrecio(prenda){
+		prenda.precio()
+	}
+	method consultarTipo(prenda){
+		prenda.tipo()
+	}
+	
+	method ventasFecha(fecha){
+		return ventas.filter({venta => venta.fecha() == fecha})
+	}
+	
+	method GananciasFecha(fecha){
+		  ventasFecha(fecha).sum({venta =>venta.total()})
+	}
+}
+
+//para la solucion le di al cliente la capacidad de consultar en una lista de ventas las ganancias totales de un dia en especifico y
+// ademas de consultar el precio y el tipo de una prenda en especifico
+// para esto arme una clase donde contiene los 3 tipos que hay y le segun el estado de este calcula el precio 
+
 class Prenda {
 	const tipo = ["saco" , "pantalon" , "camisa"]
 	var precioPropio
@@ -9,12 +31,15 @@ class Prenda {
 	}
 }
 
+
 object nueva{
 	method calculoPrecio(precio){
 		return precio
 	}
 }
 
+//en este no estaba segura de como pasarle el valor fijo por la promocion 
+//y supuse que las promociones pueden variar a pesar de que se llama valor fijo lo asigne como var
 object promocion{
 	var valorFijo = 0
 	method designarVF(vf){
@@ -32,7 +57,9 @@ object liquidacion{
 }
 
 
-
+// tambien cree una clase de venta donde contiene las ventas de una fecha determinada para poder calcular las ventas totales
+//aca como no recordaba mucho wollok no estaba segura de como hacer que en la lista tenga una determinada (venta y cantidad) para asi calcular segun el tipo de la 
+//venta una cantidad especifica, como: se vendio 5 sacos a 300 pesos y otra venta 6 pantalones a 400 pesos, pero no recordaba como hacerlo
 class Venta{
 	
 	const ventas = []
@@ -80,20 +107,4 @@ object tarjeta{
 	}
 	
 }
-class Cliente{
-	const ventas = []
-	method consultarPrecio(prenda){
-		prenda.precio()
-	}
-	method consultarTipo(prenda){
-		prenda.tipo()
-	}
-	
-	method ventasFecha(fecha){
-		return ventas.filter({venta => venta.fecha() == fecha})
-	}
-	
-	method GananciasFecha(fecha){
-		  ventasFecha(fecha).sum({venta =>venta.total()})
-	}
-}
+
